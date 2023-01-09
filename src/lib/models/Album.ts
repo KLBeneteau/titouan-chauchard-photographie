@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const AlbumSchema = new mongoose.Schema({
     nom: {  type: String , required: true, unique: true},

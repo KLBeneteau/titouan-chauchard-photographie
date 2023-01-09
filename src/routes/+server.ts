@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async ({ url }) => {
+export const GET: RequestHandler = async () => {
     console.log("début connexion mongoDb")
     dotenv.config();
     const {MONGO_PORT, MONGO_DB, MONGO_HOST} = process.env;

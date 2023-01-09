@@ -1,7 +1,9 @@
 import type { Actions,PageServerLoad } from './$types';
 import { fail, redirect  } from '@sveltejs/kit';
 import UserModel from '$lib/models/User';
+import { sendMail } from '$lib/utils/mailer';
 import * as bcrypt from 'bcrypt';
+
 
 export const load: PageServerLoad = ({ locals }) => {
 
@@ -19,10 +21,10 @@ export const actions: Actions = {
     //console.log(data)
 
     let formReponse : any  = {
-        nom : data.get('nom'),
-        prenom : data.get('prenom'),
-        telephone : data.get('telephone'),
-        email : data.get('email'),
+        nom : data.get('nom')?.toString(),
+        prenom : data.get('prenom')?.toString(),
+        telephone : data.get('telephone')?.toString(),
+        email : data.get('email')?.toString(),
         error : {}
     }
 
@@ -67,7 +69,19 @@ export const actions: Actions = {
                 password: bcrypt.hashSync(data.get('password')?.toString()||'', bcrypt.genSaltSync(13))
             })
 
-            await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Compte créé avec succès', vue:false} }));
+            const mail = await sendMail(
+                formReponse.email,
+                'Inscription à Titouan-Chauchard-Photographie',
+                `<h1>Félicitation ${formReponse.nom} ${formReponse.prenom} !</h1>
+                <p>Vous êtes désormais inscrit à mon site de photographie, j'espère que mes projets te plairont 😁</p>
+                <br/><p>Titouan Chauchard</p>
+                <p>titouan.chauchard.photographie@gmail.com</p>`
+            );
+
+            if(!mail)
+                await event.locals.session.update(({}) => ({ flash: { type:'success', message:"Compte créé avec succès, mais notre mail de confirmation n'à pas pue vous parvenir...", vue:false} }));
+            else 
+                await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Compte créé avec succès ! Un email vous à été envoyez', vue:false} }));
 
             throw redirect(303, "/");
         }
