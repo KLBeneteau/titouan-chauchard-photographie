@@ -69,7 +69,8 @@ const UserSchema = new mongoose.Schema({
       catch(error){ return false }
     },
     message: () => `La commande n'a pas le bon statut !`
-  }}
+  }},
+  token : { type: String }
 });
 
 const COLLECTION_NAME = "users";

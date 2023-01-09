@@ -1,0 +1,64 @@
+import type { Actions, PageServerLoad } from './$types';
+import { fail, redirect } from '@sveltejs/kit';
+import UserModel from '$lib/models/User';
+import md5 from "md5"
+import { sendMail } from '$lib/utils/mailer';
+import dotenv from "dotenv";
+
+export const load: PageServerLoad = ({ locals }) => {
+    
+    if(locals.session.data.user)
+        throw redirect(303, "/");
+    else 
+        return {};
+}
+
+
+export const actions: Actions = {
+	default: async (event) => {
+
+        let data = await event.request.formData();
+
+        let formReponse : any  = {
+            email : data.get('email')?.toString(),
+            error : {}
+        }
+
+        //vérifie si l'utilisateur hésiste déja 
+        const user = await UserModel.findOne({email:data.get("email")?.toString()})
+
+        if(!user){
+            formReponse.error['email'] = true
+            return fail(400, formReponse);
+        }
+        else { 
+
+            dotenv.config();
+            const {BASE_HREF} = process.env;
+
+            let token = md5('TC-Ph0t0'+Date.now()+Math.floor(Math.random() * 10000)).toString();
+            await UserModel.updateOne(
+                {_id : user._id},
+                {token : token}
+            )
+            const mail = await sendMail(
+                user.email,
+                'Réinistialisation de votre mot de passe',
+                `<h1>${user.prenom}, vous avez oubliez votre mot de passe ?</h1>
+                <p>Cliquez sur ce lien pour entrez votre nouveau mot de passe : ${BASE_HREF}/connexion/reinitialisation?email=${user.email}&token=${token}</p>
+                <p><b>Ne partager jamais se lien !</b><p>
+                <br/><p>Si vous n'avez pas effectuer cette demande, contacter moi par mail ! </p> 
+                <br/><p>Titouan Chauchard</p>
+                <p>titouan.chauchard.photographie@gmail.com</p>`
+            );
+            
+            if(!mail)
+                await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
+            else 
+                await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Un email de réinitialisation vous à été envoyer !', vue:false} }));
+
+            throw redirect(303, "/");
+        }
+            
+  }
+};

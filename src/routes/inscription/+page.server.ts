@@ -14,11 +14,10 @@ export const load: PageServerLoad = ({ locals }) => {
 }
  
 export const actions: Actions = {
+    
   default: async (event) => {
 
     let data = await event.request.formData();
-    // console.log(event) -> plein d'info la dedans 
-    //console.log(data)
 
     let formReponse : any  = {
         nom : data.get('nom')?.toString(),

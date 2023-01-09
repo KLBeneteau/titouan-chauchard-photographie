@@ -3,23 +3,21 @@
     export let form: ActionData;
 </script>
 
-
 <form method="POST">
-    <h1>Connexion</h1>
+    <h1>Réinitialiser votre mot de passe</h1>
     <div class="flux">
-        <div class="input">
-            <label for="email">Mail</label>
-            <input type="email" name="email" required value={form?.email ?? ''} class:input-error="{form?.error.email}">
-            {#if form?.error.email}<p class="error">Utilisateur incconue</p>{/if}
-        </div>
         <div class="input">
             <label for="password">Mot de passe</label>
             <input type="password" name="password" required class:input-error="{form?.error.password}" >
-            {#if form?.error.password}<p class="error">Mot de passe incorect</p>{/if}
+            {#if form?.error.password}<p class="error err-password">Votre mot de passe doit au moins contenir : une majuscule, une minuscule, un chiffre, un caractère spécial, et faire plus de 8 caractère</p>{/if}
         </div>
-        <a href="/connexion/nouveau-mdp">Mot de passe oublié</a>
+        <div class="input">
+            <label for="confirm-password">Confirmation mot de passe</label>
+            <input type="password" name="confirm-password" required class:input-error="{form?.error['confirm-password']}">
+            {#if form?.error['confirm-password']}<p class="error">Mot de passe et confirmation différentes</p>{/if}
+        </div>
     </div>
-    <input type="submit" value="Se connecter"/>
+    <input type="submit" value="Modifier mon mot de passe"/>
 </form>
 
 <style>
@@ -50,5 +48,8 @@
         padding: 0.8em 2em;
         color: var(--TC-noir);
         margin-top: 1em;
+    }
+    .err-password {
+        bottom: -30px;
     }
 </style>
