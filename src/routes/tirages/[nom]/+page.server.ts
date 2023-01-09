@@ -56,16 +56,18 @@ export const actions: Actions = {
    },
 
    ajouterPannier: async (event) => { 
-
-      if(event.locals.session.data.user)
+      
+      if(!event.locals.session.data.user)
          throw redirect(303, "/connexion");
 
       let data = await event.request.formData();
-     
+
       try {
+         const produit = await ProduitModel.findById(data.get("id")?.toString())
 
          //Si le pannier existe on ajoute le produit
-         const user = UserModel.findOne({email : event.locals.session.data.user.email})
+         const user = await UserModel.findOne({email : event.locals.session.data.user.email})
+
          if(user?.pannier){
             await CommandeModel.updateOne(
                { _id : user?.pannier},
@@ -75,7 +77,9 @@ export const actions: Actions = {
                      contenu : {
                         produit : data.get("id")?.toString(),
                         quantite : 1,
-                        dimension : data.get("dimension")?.toString()
+                        dimension : data.get("dimension")?.toString(),
+                        prix : produit?.tarif.find(t => t.dimension === data.get("dimension")?.toString())?.prix,
+                        nom : produit?.nom
                      }
                   }
                }
@@ -85,7 +89,6 @@ export const actions: Actions = {
          //Sinon on créer le pannier avec le produit
          else {
 
-            const produit = await ProduitModel.findById(data.get("id")?.toString())
             let dimension = data.get("dimension")?.toString()
 
             //Vérifier que la dimension envoyer existe bien chez le produit
@@ -94,21 +97,30 @@ export const actions: Actions = {
                return fail(400, {});
             }  
 
-            await CommandeModel.create({
-               utilisateur : user._id,
+            let pannier = await CommandeModel.create({
+               utilisateur : user?._id,
                contenu : [{
                   produit : produit?._id,
                   quantite : 1,
-                  dimension : dimension
+                  dimension : dimension,
+                  prix : produit?.tarif.find(t => t.dimension === data.get("dimension")?.toString())?.prix,
+                  nom : produit?.nom
                }],
             })
+
+            await UserModel.updateOne(
+               {email:event.locals.session.data.user.email},
+               {pannier : pannier._id}
+            )
+
             await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Le tirage à bien été ajouté au pannier', vue:false} }));
-         }
-         
-         throw redirect(303, "/tirages");
+         }    
       } catch (error) {
+         console.log(error)
          await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Erreur lors de l'ajout au pannier", vue:false} }));
          return fail(400, {});
       }
+
+      throw redirect(303, "/tirages");
    }
 };

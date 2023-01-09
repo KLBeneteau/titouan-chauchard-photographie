@@ -118,7 +118,7 @@
         display: flex;
         flex-direction: column;
         width: 80%; 
-        margin: 2em auto;
+        margin: 0 auto 2em;
         align-items: center;
     }
     .head { 

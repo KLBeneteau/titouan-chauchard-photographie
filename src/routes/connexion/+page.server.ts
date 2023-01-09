@@ -41,7 +41,8 @@ export const actions: Actions = {
                 prenom : user?.prenom,
                 telephone : user?.telephone,
                 email : user?.email,
-                role : user?.role
+                role : user?.role,
+                id : user?._id
             }
 
             await event.locals.session.set({ user: localsUser, flash: null });
