@@ -1,13 +1,12 @@
 import type { Actions } from './$types';
-import { fail } from '@sveltejs/kit';
-import nodemailer from "nodemailer"
+import { fail, redirect } from '@sveltejs/kit';
+import { sendMail } from '$lib/utils/mailer';
+
 
 export const actions: Actions = {
   default: async (event:any) => {
 
     let data = await event.request.formData();
-    // console.log(event) -> plein d'info la dedans 
-    //console.log(data)
 
     let formReponse : any  = {
         nom : data.get('nom'),
@@ -35,30 +34,24 @@ export const actions: Actions = {
     if(Object.getOwnPropertyNames(formReponse.error).length > 0) 
         return fail(400, formReponse);
 
-    //----TODO : Envoie du mail------
     else {
-        /*
 
-        let transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-              user: 'kael.beneteau@gmail.com',
-              pass: '4uGbx#6b9vy'
-            }
-        });
+        const mail = await sendMail(
+            'titouan.chauchard.photographie@gmail.com',
+            formReponse.object,
+            `<p><b>${formReponse.nom} ${formReponse.prenom} vous à envoyer une demande de contact !</b></p>
+            <p>${formReponse.message}</p>
+            <p>Vous pouvez le contacter par mail à ${formReponse.email} <br/>
+            ou par telepjone au ${formReponse.telephone}</p>`
+        )
 
-        let mailOptions = {
-            from: 'kael.beneteau@gmail.com',
-            to: 'kael.beneteau@gmail.com',
-            subject: data.get('object'),
-            text: data.get('message')
-        };
+        if(!mail)
+            await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Votre message n'à pas pu etre envoyé :(", vue:false} }));
+        else 
+            await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Votre message à été envoyer !', vue:false} }));
 
-        transporter.sendMail(mailOptions, (error:any, info:any) => {
-            if (error) console.log(error);
-            else  console.log('Email sent: ' + info.response);
-        });
-        */
+        throw redirect(303, "/");
+    
     }
   }
 };

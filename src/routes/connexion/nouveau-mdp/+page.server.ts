@@ -31,7 +31,7 @@ export const actions: Actions = {
             formReponse.error['email'] = true
             return fail(400, formReponse);
         }
-        else { 
+        else try { 
 
             dotenv.config();
             const {BASE_HREF} = process.env;
@@ -41,7 +41,7 @@ export const actions: Actions = {
                 {_id : user._id},
                 {token : token}
             )
-            const mail = await sendMail(
+            await sendMail(
                 user.email,
                 'Réinistialisation de votre mot de passe',
                 `<h1>${user.prenom}, vous avez oubliez votre mot de passe ?</h1>
@@ -51,14 +51,13 @@ export const actions: Actions = {
                 <br/><p>Titouan Chauchard</p>
                 <p>titouan.chauchard.photographie@gmail.com</p>`
             );
-            
-            if(!mail)
-                await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
-            else 
-                await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Un email de réinitialisation vous à été envoyer !', vue:false} }));
 
-            throw redirect(303, "/");
+            await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Un email de réinitialisation vous à été envoyer !', vue:false} }));
+
+        } catch {
+            await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
+            return fail(400, formReponse);
         }
-            
+        throw redirect(303, "/");     
   }
 };

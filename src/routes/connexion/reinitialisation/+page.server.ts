@@ -44,33 +44,30 @@ export const actions: Actions = {
 
 
         else { 
-
-            const user = await UserModel.findOneAndUpdate({email : event.url.searchParams.get('email'), token : event.url.searchParams.get('token')},{
-                token : null,
-                password : bcrypt.hashSync(data.get('password')?.toString()||'', bcrypt.genSaltSync(13))
-            })
             
-            if(!user)
-                await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors l'enregistrement du mot de passe", vue:false} }));
-            else {
-
+            try {
+                const user = await UserModel.findOneAndUpdate({email : event.url.searchParams.get('email'), token : event.url.searchParams.get('token')},{
+                    token : null,
+                    password : bcrypt.hashSync(data.get('password')?.toString()||'', bcrypt.genSaltSync(13))
+                })
                 const mail = await sendMail(
-                    user.email,
+                    user?.email ?? '',
                     'Votre mot de passe à été modifier !',
-                    `<h1>${user.prenom}, votre mot de passe à été modifier !</h1>
+                    `<h1>${user?.prenom}, votre mot de passe à été modifier !</h1>
                     <p>Si vous n'avez pas effectuer cette demande, contacter moi par mail ! </p> 
                     <br/><p>Titouan Chauchard</p>
                     <p>titouan.chauchard.photographie@gmail.com</p>`
                 );
-                
                 if(!mail)
                     await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
                 else 
                     await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Votre mot de passe à été correctement modifier', vue:false} }));
-    
-                throw redirect(303, "/");
 
-            }   
+            } catch {
+                await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors l'enregistrement du mot de passe", vue:false} }));
+                return fail(400, formReponse);
+            }
+            throw redirect(303, "/");
         }   
     }
 };

@@ -1,24 +1,23 @@
 import type { Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
+import CommandeModel from '$lib/models/Commande';
 
 
 export const actions: Actions = {
-  default: async (event) => {
+  default: async ({request , locals }) => {
 
-    let data = await event.request.formData();
-    // console.log(event) -> plein d'info la dedans 
-    //console.log(data)
+    let data = await request.formData();
 
     let formReponse : any  = {
-        nom : data.get('nom'),
-        prenom : data.get('prenom'),
-        rue : data.get('rue'),
-        complement : data.get('complement'),
-        cp : data.get('cp'),
-        ville : data.get('ville'),
-        pays : data.get('pays'),
-        telephone : data.get('telephone'),
-        email : data.get('email'),
+        nom : data.get('nom')?.toString(),
+        prenom : data.get('prenom')?.toString(),
+        rue : data.get('rue')?.toString(),
+        complement : data.get('complement')?.toString(),
+        cp : data.get('cp')?.toString(),
+        ville : data.get('ville')?.toString(),
+        pays : data.get('pays')?.toString(),
+        telephone : data.get('telephone')?.toString(),
+        email : data.get('email')?.toString(),
         error : {}
     }
 
@@ -38,15 +37,39 @@ export const actions: Actions = {
     if( !formReponse.cp.match(/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/) ) 
         formReponse.error['cp'] = true
 
-    if(!['france','belgique'].find(formReponse.pays.toLowerCase()))
+    if(!['france','belgique'].find((pays) => formReponse.pays.toLowerCase() === pays) )
         formReponse.error['pays'] = true
     
     if(Object.getOwnPropertyNames(formReponse.error).length > 0) 
         return fail(400, formReponse);
 
     //----Enregistrement des informations------
-    else {
-        
+    else {  
+        try {
+            await CommandeModel.updateOne({utilisateur : locals.session.data.user.id, statut : 'en pannier'},{
+                infoLivraison : {
+                    nom : formReponse.nom,
+                    prenom : formReponse.prenom,
+                    adresse : {
+                        rue : formReponse.rue,
+                        complement : formReponse.complement,
+                        cp : formReponse.cp,
+                        ville : formReponse.ville,
+                        pays : formReponse.pays
+                    },
+                    telephone : formReponse.telephone,
+                    email : formReponse.email
+                },
+                dernierModif : Date.now()
+            })
+    
+        } catch(error) {
+            console.log(error)
+            await locals.session.update(({}) => ({ flash: { type:'error', message:"Erreur lors de l'enregistrement des information de livraison", vue:false} }));
+            return fail(400, {});
+        } 
+
+        throw redirect(303, "/pannier/paiement");
     }
   }
 };
