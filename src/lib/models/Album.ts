@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 const AlbumSchema = new mongoose.Schema({
     nom: {  type: String , required: true, unique: true},
     description : {  type: String },
-    vignette : String,
+    vignette : {  type: String },
     formatVignette : { type : Boolean, default : false },
-    banderole : String,
+    banderole : {  type: String },
     images : [ String ]
     //https://stackoverflow.com/questions/29780733/store-an-image-in-mongodb-using-node-js-express-and-mongoose
 })

@@ -14,6 +14,9 @@ export const handle = handleSession(
 			else 
 				event.locals.session.update(({flash}) => ({ flash: { type:flash.type, message:flash.message, vue:true} }));
 		}
+
+		if(event.route.id === null)
+			return Response.redirect(event.url.origin)
 		
 		return resolve(event);
 	}

@@ -45,13 +45,12 @@
     <img class="banderole" alt="banderole" src="{album.banderole ?? "/defaultBanniere.png" }" />
     <form method="POST" action="?/update"
         class:center="{!enModification}"
+        class:maxwidth="{enModification}"
     >
-        <div class="head">
+        <div class="head" class:self-center={enModification}>
             <a class="retour" data-sveltekit-reload href="/portfolio"><img src="/retour.png" alt="icone de Sebastian Belalcazar"/></a>
             {#if enModification}
-                <div class="input">
-                    <input type="text" name="nom" value={album.nom.replace(/_/," ")}>
-                </div>
+                <h1>Modification de l'album</h1>
             {:else}
                 <h1>{album.nom.replace(/_/," ")}</h1>
             {/if}
@@ -62,20 +61,25 @@
             {/if}
         </div>
         {#if enModification}
+                <div class="input">
+                    <label for="nom">Titre de l'album</label>
+                    <input type="text" name="nom" value={album.nom.replace(/_/," ")}>
+                </div>
                 <div class="input textarea">
+                    <label for="description">Description de l'album</label>
                     <textarea name="description">{album.description ?? ''}</textarea>
                 </div>
-                <div class="input">
+                <div class="checkbox input">
                     <input type="checkbox" name="formatVignette" checked={album.formatVignette}>
-                    <label for="checkbox">Format grand</label>
+                    <label for="checkbox">Vignette en grand format ?</label>
                 </div>
                 <div class="input">
-                    <label for="vignette">Vignette</label>
+                    <label for="vignette">Image de la vignette</label>
                     <input type="file" name="vignette" accept=".jpg, .jpeg, .png" on:change={(e)=>onVignetteSelected(e)}/>
                     <input type="hidden" name="vignetteFile" value="{vignette}"/>
                 </div>
                 <div class="input">
-                    <label for="banderole">Banderole</label>
+                    <label for="banderole">Image de la banderole</label>
                     <input type="file" name="banderole" accept=".jpg, .jpeg, .png" on:change={(e)=>onBanderoleSelected(e)}/>
                     <input type="hidden" name="banderoleFile" value="{banderole}"/>
                 </div>
@@ -84,7 +88,7 @@
                     <input type="file" name="photographies" accept=".jpg, .jpeg, .png" on:change={(e)=>onPhotographiesSelected(e)} multiple /> 
                     <input type="hidden" id="photographiesFiles" name="photographiesFiles" value="{JSON.stringify(photographies)}" />
                 </div>
-                <input type="submit" value="Modifier"/>
+                <input type="submit" value="Valider"/>
         {:else}
             <p>{album.description ?? "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." }</p>
         {/if}
@@ -114,7 +118,7 @@
     form { 
         width: 80%; 
         margin: auto;
-        gap: 10px
+        gap: 20px
     }
     .head { 
         display: flex; 
@@ -126,6 +130,9 @@
         margin: 0 2em;
         text-align: center;
     }
+
+
+
     .textarea {
         max-width: 1200px;
         width: 100%;
@@ -133,11 +140,26 @@
     textarea {     
         height: 100px;
         width: 100%;
+        background-color: var(--TC-clair);
+        margin: 5px 0;
     }
-    .input {    
+    .input { align-items: flex-start; }
+    input[type="text"] { background-color: var(--TC-clair);}
+    .input.checkbox { 
         flex-direction: initial;
-        align-items: baseline;
+        gap: 15px;
     }
+    input[type="submit"] {
+        padding: 0.8em 2em;
+        color: var(--TC-noir);
+        margin-top: 1em;
+        background-color: var(--TC-clair);
+        width: fit-content;
+        align-self: center;
+    }
+
+
+
     .pen img { height: 40px;}
     .center { align-items: center; }
     .imageListe {
@@ -152,7 +174,8 @@
     .imageListe button { padding: 0.3em;}
     .photographie {
         height: 450px;
-        width: 350px;
+        width: 337px;
+        object-fit: contain;
     }
     .suppr {
         position: absolute;
@@ -170,4 +193,6 @@
     .retour img {
         height: 50px;
     }
+    .self-center{ align-self: center;}
+    .maxwidth{ max-width: 600px;}
 </style>

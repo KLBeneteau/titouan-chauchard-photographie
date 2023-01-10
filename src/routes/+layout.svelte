@@ -87,6 +87,7 @@
     :global(.banderole){  
         height: 130px ;
         width: 100%;
+        object-fit: cover;
     }
    
     .flash {

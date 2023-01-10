@@ -53,9 +53,11 @@
                     <input type="hidden" name="image" value="{image}"/>
                     <input type="hidden" name="tarifs" value="{JSON.stringify($newTarifs)}"/>
                     <div class="input">
+                        <label for="nom">Nom du tirage</label>
                         <input type="text" name="nom" value={tirage.nom.replace(/_/," ")}>
                     </div>
                     <div class="input textarea">
+                        <label for="nom">Description du tirage</label>
                         <textarea name="description">{tirage.description ?? ''}</textarea>
                     </div>
                 
@@ -66,8 +68,8 @@
                         </div>
                         {#each $newTarifs as tarif, i}
                             <div class="tarif">
-                                <input type="text" value={tarif.dimension} on:input={(e)=>{$newTarifs[i].dimension = e.target.value}}>
-                                <input type="number" min="0" step="0.01" value={tarif.prix} on:input={(e)=>{$newTarifs[i].prix = e.target.value}}>
+                                <input type="text" value={tarif.dimension} on:input={(e)=>{$newTarifs[i].dimension = e.currentTarget.value}}>
+                                <input type="number" min="0" step="0.01" value={tarif.prix} on:input={(e)=>{$newTarifs[i].prix = e.currentTarget.value}}>
                             </div>
                         {/each}
                         <button class="tabTarif-button" on:click={(e)=>{ 
@@ -102,8 +104,10 @@
                             </button>
                         {/each}
                     </div>
-                    <h3>Prix</h3>
-                    <p>{curentPrix?.toPrecision(4)}€</p>
+                    <div class="prix">
+                        <h3>Prix</h3>
+                        <p>{curentPrix?.toPrecision(4)}€</p>
+                    </div>
                     <input type="hidden" name="id" value="{tirage._id}">
                     <input type="hidden" name="dimension" value="{curentDimension}">
                     <input type="submit" value="Ajouter au pannier">
@@ -128,6 +132,14 @@
     .head > * { margin: 1em 0.3em;}
     .pen img { height: 40px;}
 
+    .prix {
+        margin: 1.4em 0;
+        text-align: center;
+    }
+    .prix * {
+        margin: 0.2em;
+    }
+
     .body { 
         display: flex;
         justify-content: space-between;
@@ -135,7 +147,14 @@
     }
     .body > div { width: 48%;}
     .image .input { display: flex; align-items: center;}
-    textarea { height: 200px;}
+    textarea { 
+        height: 200px;
+        margin: 5px 0;
+        background-color: var(--TC-clair);
+    }
+    input[type="text"] { 
+        background-color: var(--TC-clair);
+    }
 
     .tabTarif {
         background-color: var(--TC-clair);
@@ -194,20 +213,28 @@
     .ajouterPannier button {
         background-color: var(--TC-clair);
         color: var(--TC-noir);
-        padding: 0.2em 1.5em;
+        padding: 0.5em 1.5em;
         margin: 0 0.5em;
+        border-radius: 0;
+        transition : 0.5s;
+        border: 2px solid var(--TC-clair);
     }
     input[type="submit"] { 
         background-color: var(--TC-clair);
         color: var(--TC-noir);
+        width: fit-content;
+        align-self: center;
+        padding: 0.8em 2em;
     }
     .update {
-        gap: 15px;
+        gap: 25px;
         display: flex;
         flex-direction: column;
     }
-    .selected { 
-        background-color: #4F4D4D !important;
+    button.selected { 
+        background-color: var(--TC-beige);
+        border: 2px solid var(--TC-beige);
+        border-radius: 7px;
     }
     .retour {
         height: 50px;
