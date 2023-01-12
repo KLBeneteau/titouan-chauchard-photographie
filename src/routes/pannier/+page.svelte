@@ -35,8 +35,8 @@
                         <p>{tabQuantite[i]}</p>
                         <button on:click={()=>changeQuantity(i,+1)}>+</button>
                     </div>
-                    <p>{produit.prix.toPrecision(4)}</p>
-                    <p>{(produit.prix * tabQuantite[i]).toPrecision(4)}</p>
+                    <p>{produit.prix.toFixed(2)}</p>
+                    <p>{(produit.prix * tabQuantite[i]).toFixed(2)}</p>
                 </div>
             {/if}
         {/each}
@@ -44,13 +44,13 @@
     <div class="total">
         <div class="resumeTT">
             <p>Article{tabQuantite.reduce((sum,value)=>sum + value,0) > 1 ? 's' : ''} :
-                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toPrecision(4)} €</span>
+                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toFixed(2)} €</span>
             </p>
             <p>Frais de port :
                 <span>Offerts</span>
             </p>
             <p>Montant total :  
-                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toPrecision(4)} €</span>
+                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toFixed(2)} €</span>
             </p>
         </div>
         <div class="buttons">
@@ -88,7 +88,7 @@
     .tab { 
         display: flex;
         flex-direction: column;
-        background-color: var(--TC-beige);
+        background-color: var(--TC-clair);
         color : var(--TC-noir);
         align-items: stretch;
         justify-content: stretch;
@@ -125,7 +125,7 @@
         align-self: flex-end;
     }
     .resumeTT{
-        background-color: var(--TC-beige);
+        background-color: var(--TC-clair);
         color : var(--TC-noir);
         padding: 0.3em 1em;
         margin: 2em 0;
@@ -143,7 +143,7 @@
         margin-bottom: 2em;
     }
     .buttons button {
-        background-color: var(--TC-beige);
+        background-color: var(--TC-clair);
         color : var(--TC-noir);
     }
 </style>

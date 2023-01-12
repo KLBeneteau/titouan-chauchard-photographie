@@ -42,7 +42,7 @@ export const actions: Actions = {
             `<p><b>${formReponse.nom} ${formReponse.prenom} vous à envoyer une demande de contact !</b></p>
             <p>${formReponse.message}</p>
             <p>Vous pouvez le contacter par mail à ${formReponse.email} <br/>
-            ou par telepjone au ${formReponse.telephone}</p>`
+            ou par telephone au ${formReponse.telephone}</p>`
         )
 
         if(!mail)

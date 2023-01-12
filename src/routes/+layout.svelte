@@ -10,7 +10,7 @@
 {#if f }
  {#if f.type == "success"}
     {#if modal}
-        <div class="fondModale" on:click={()=>modal=false} on:keypress>
+        <div class="fondModale" on:click={()=>modal=false} on:keypress role="alert">
             <p>
                 {f.message}
                 <img alt="success" src="/success.png"/>
@@ -18,7 +18,7 @@
         </div>
     {/if}
  {:else}
-    <p class="flash {f.type}">{f.message}</p>
+    <p class="flash {f.type}" role="alert">{f.message}</p>
  {/if}
 {/if}
 <slot/>

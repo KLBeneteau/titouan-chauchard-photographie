@@ -1,11 +1,12 @@
 <script lang="ts">
+    import ResumeTT from '$lib/component/resumeTT.svelte';
+
     import type { ActionData } from './$types';
     export let form: ActionData;
 
     import type { PageParentData } from './$types';
     export let data: PageParentData;
 
-    let tabQuantite : number[] = data.pannier.contenu.map((p:any) => p.quantite)
 </script>
 
 
@@ -63,17 +64,7 @@
             </div>
             <input type="submit" value="Continuer"/>
         </form>
-        <div class="resumeTT">
-            <p>Article{tabQuantite.reduce((sum,value)=>sum + value,0) > 1 ? 's' : ''} :
-                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toPrecision(4)} €</span>
-            </p>
-            <p>Frais de port :
-                <span>9.00 €</span>
-            </p>
-            <p>Montant total :  
-                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toPrecision(4)+9} €</span>
-            </p>
-        </div>
+        <ResumeTT pannier={data.pannier}></ResumeTT>
     </div>
 </main>
 
@@ -134,18 +125,5 @@
         padding: 0.8em 2em;
         color: var(--TC-noir);
         margin-top: 1em;
-    }
-
-    .resumeTT{
-        background-color: var(--TC-beige);
-        color : var(--TC-noir);
-        padding: 0.3em 1em;
-        margin: 2em 0;
-        font-size: larger;
-    }
-    .resumeTT p { 
-        display: flex;
-        justify-content: space-between;
-        gap: 30px;
     }
 </style>

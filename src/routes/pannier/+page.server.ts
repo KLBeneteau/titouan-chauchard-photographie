@@ -43,13 +43,12 @@ async function savePannier(userId:any,quantites:Number[]){
         },
         $unset : {}
     }
-    for(let i = 0; i < quantites.length; i++){
-        console.log(quantites[i])
+    
+    for(let i = 0; i < quantites.length; i++)
         if(quantites[i] > 0) 
             query.$set["contenu."+i+".quantite"] = quantites[i]
         else 
             query.$unset["contenu."+i] = 1
-    }
     
     await CommandeModel.updateOne(
         {utilisateur : userId, statut : 'en pannier'},
