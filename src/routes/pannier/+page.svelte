@@ -47,10 +47,10 @@
                 <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toFixed(2)} €</span>
             </p>
             <p>Frais de port :
-                <span>Offerts</span>
+                <span>9.00 €</span>
             </p>
             <p>Montant total :  
-                <span>{data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0).toFixed(2)} €</span>
+                <span>{(data.pannier.contenu.reduce((tt,produit,i)=>tt + (produit.prix*tabQuantite[i]),0)+9).toFixed(2)} €</span>
             </p>
         </div>
         <div class="buttons">

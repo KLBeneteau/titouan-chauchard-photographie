@@ -90,7 +90,7 @@
             {:else}
                 <form method="POST" action="?/ajouterPannier" class="ajouterPannier">
                     <h2>{tirage.nom.replace(/_/," ")}</h2>
-                    <p>{tirage.description}</p>
+                    <p class="textCenter">{tirage.description}</p>
                     <h3>Dimension (cm)</h3>
                     <div class="dimensionListe">
                         {#each tirage.tarif as t}
@@ -106,7 +106,7 @@
                     </div>
                     <div class="prix">
                         <h3>Prix</h3>
-                        <p>{curentPrix?.toPrecision(4)}€</p>
+                        <p>{curentPrix?.toFixed(2)}€</p>
                     </div>
                     <input type="hidden" name="id" value="{tirage._id}">
                     <input type="hidden" name="dimension" value="{curentDimension}">
@@ -245,4 +245,5 @@
     .retour img {
         height: 50px;
     }
+    .textCenter{text-align: center;}
 </style>

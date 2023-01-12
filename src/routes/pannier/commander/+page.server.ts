@@ -1,6 +1,20 @@
 import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import CommandeModel from '$lib/models/Commande';
+import type { PageServerLoad } from './$types';
+
+export const load: PageServerLoad = async ({parent}) => {
+
+    const { pannier } = await parent();
+  
+    let amount = 100 * pannier.contenu.reduce(
+      (sum:number, produit:any) => sum + (produit.prix*produit.quantite),
+      0 );
+  
+    if(amount === 0) throw redirect(303,'/')
+  
+    return { }
+}
 
 
 export const actions: Actions = {
@@ -65,7 +79,7 @@ export const actions: Actions = {
     
         } catch(error) {
             console.log(error)
-            await locals.session.update(({}) => ({ flash: { type:'error', message:"Erreur lors de l'enregistrement des information de livraison", vue:false} }));
+            await locals.session.update(() => ({ flash: { type:'error', message:"Erreur lors de l'enregistrement des information de livraison", vue:false} }));
             return fail(400, {});
         } 
 

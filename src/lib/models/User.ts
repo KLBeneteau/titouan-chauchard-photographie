@@ -61,12 +61,13 @@ const UserSchema = new mongoose.Schema({
     } 
   }],
   pannier : { type: mongoose.Types.ObjectId, ref: 'commandes', validate: {
-    validator: async function(v:string) {
-      try {
-        let commande = await CommandeModel.findById(v)
-        return commande?.statut === "en pannier"
-      }
-      catch(error){ return false }
+    validator: async function(v:string|null) {
+      if(v === null) return true
+      else try {
+          let commande = await CommandeModel.findById(v)
+          return commande?.statut === "en pannier"
+        }
+        catch(error){ return false }
     },
     message: () => `La commande n'a pas le bon statut !`
   }},

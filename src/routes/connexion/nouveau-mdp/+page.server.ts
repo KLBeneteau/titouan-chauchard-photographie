@@ -52,10 +52,10 @@ export const actions: Actions = {
                 <p>titouan.chauchard.photographie@gmail.com</p>`
             );
 
-            await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Un email de réinitialisation vous à été envoyer !', vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'success', message:'Un email de réinitialisation vous à été envoyer !', vue:false} }));
 
         } catch {
-            await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
             return fail(400, formReponse);
         }
         throw redirect(303, "/");     

@@ -59,12 +59,12 @@ export const actions: Actions = {
                     <p>titouan.chauchard.photographie@gmail.com</p>`
                 );
                 if(!mail)
-                    await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
+                    await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
                 else 
-                    await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Votre mot de passe à été correctement modifier', vue:false} }));
+                    await event.locals.session.update(() => ({ flash: { type:'success', message:'Votre mot de passe à été correctement modifier', vue:false} }));
 
             } catch {
-                await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Echec lors l'enregistrement du mot de passe", vue:false} }));
+                await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors l'enregistrement du mot de passe", vue:false} }));
                 return fail(400, formReponse);
             }
             throw redirect(303, "/");

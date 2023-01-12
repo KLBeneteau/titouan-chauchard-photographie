@@ -46,9 +46,9 @@ export const actions: Actions = {
         )
 
         if(!mail)
-            await event.locals.session.update(({}) => ({ flash: { type:'error', message:"Votre message n'à pas pu etre envoyé :(", vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'error', message:"Votre message n'à pas pu etre envoyé :(", vue:false} }));
         else 
-            await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Votre message à été envoyer !', vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'success', message:'Votre message à été envoyer !', vue:false} }));
 
         throw redirect(303, "/");
     

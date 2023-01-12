@@ -14,7 +14,7 @@
         <span>9.00 €</span>
     </p>
     <p>Montant total :  
-        <span>{prix.toFixed(2)+9} €</span>
+        <span>{(prix+9).toFixed(2)} €</span>
     </p>
 </div>
 

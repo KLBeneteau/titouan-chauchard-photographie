@@ -10,7 +10,7 @@ export const handle = handleSession(
 		
 		if(f){
 			if(f.vue)
-				event.locals.session.update(({}) => ({ flash: null }));
+				event.locals.session.update(() => ({ flash: null }));
 			else 
 				event.locals.session.update(({flash}) => ({ flash: { type:flash.type, message:flash.message, vue:true} }));
 		}

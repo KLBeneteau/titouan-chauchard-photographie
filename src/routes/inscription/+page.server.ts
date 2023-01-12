@@ -78,9 +78,9 @@ export const actions: Actions = {
             );
 
             if(!mail)
-                await event.locals.session.update(({}) => ({ flash: { type:'success', message:"Compte créé avec succès, mais notre mail de confirmation n'à pas pue vous parvenir...", vue:false} }));
+                await event.locals.session.update(() => ({ flash: { type:'success', message:"Compte créé avec succès, mais notre mail de confirmation n'à pas pue vous parvenir...", vue:false} }));
             else 
-                await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Compte créé avec succès ! Un email vous à été envoyez', vue:false} }));
+                await event.locals.session.update(() => ({ flash: { type:'success', message:'Compte créé avec succès ! Un email vous à été envoyez', vue:false} }));
 
             throw redirect(303, "/");
         }

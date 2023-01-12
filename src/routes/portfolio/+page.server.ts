@@ -3,7 +3,7 @@ import type { Actions } from './$types';
 import { redirect,fail  } from '@sveltejs/kit';
 import AlbumModel from '$lib/models/Album';
 
-export const load: PageServerLoad = async ({}) => {
+export const load: PageServerLoad = async () => {
 
     const albums = JSON.parse(JSON.stringify(await AlbumModel.find())).map((a:any) =>  { return {vignette : a.vignette, format : a.formatVignette, nom : a.nom}})
 
@@ -46,7 +46,7 @@ export const actions: Actions = {
 
         await AlbumModel.deleteOne({nom : data.get('nom')})
 
-        await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Album supprimer avec succès', vue:false} }));
+        await event.locals.session.update(() => ({ flash: { type:'success', message:'Album supprimer avec succès', vue:false} }));
         throw redirect(303, "/portfolio");
     }
   

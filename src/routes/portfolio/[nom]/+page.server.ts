@@ -6,7 +6,7 @@ import AlbumModel from '$lib/models/Album';
 export const load: PageServerLoad = async ({ locals, params }) => {
    const album = await AlbumModel.findOne({nom: params.nom})
    if(!album){
-      await locals.session.update(({}) => ({ flash: { type:'error', message:'Album introuvable', vue:false} }));
+      await locals.session.update(() => ({ flash: { type:'error', message:'Album introuvable', vue:false} }));
       throw redirect(303, "/portfolio");
    }
    else 
@@ -25,7 +25,7 @@ export const actions: Actions = {
       const album = await AlbumModel.findOne({nom: data.get('nom')})
 
       if(album && event.params.nom!==album.nom ){
-         await event.locals.session.update(({}) => ({ flash: { type:'error', message:'Nom déja utilisé', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'error', message:'Nom déja utilisé', vue:false} }));
          return fail(400, {});
       }
 
@@ -43,11 +43,11 @@ export const actions: Actions = {
                },
                $push: { images: { $each: Newimages } }
             })
-         await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Album modifier avec succès', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'success', message:'Album modifier avec succès', vue:false} }));
       } 
       catch (error) {
          console.log(error)
-         await event.locals.session.update(({}) => ({ flash: { type:'error', message:'erreur lors de la modification', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'error', message:'erreur lors de la modification', vue:false} }));
          return fail(400, {});
       }
 

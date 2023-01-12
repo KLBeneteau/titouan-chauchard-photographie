@@ -15,6 +15,9 @@
     let cardExpiry : any
     let cardCvc : any
 
+    let name = '';
+    let error : string | null = null
+
     onMount(async () => {
 
         stripe = Stripe(data.publicKey)
@@ -24,38 +27,45 @@
         cardCvc = elements.create('cardCvc')
 
         cardNumber.mount('#cardNumber')
-        cardNumber.addEventListener('change', ({error} : any) => {console.log(error)})
         cardExpiry.mount('#cardExpiry')
-        cardExpiry.addEventListener('change', ({error} : any) => {console.log(error)})
         cardCvc.mount('#cardCvc')
-        cardCvc.addEventListener('change', ({error} : any) => {console.log(error)})
+
 	});
 
-    async function payer(){
-            document.querySelector('#btn-paiement')?.setAttribute('disabled','true')
-
+    async function handleSubmit(){
+            document.querySelector('input[type="submit"]')?.setAttribute('disabled','true')         
+            
+            //Envoie du paiement a stripe
             const result = await stripe.confirmCardPayment(data.clientSecretKey,{
                 payment_method: { 
                     card : cardNumber,
                     billing_details : {
                         email : data.pannier.infoLivraison.email,
-                        name : 'test'
+                        name : name
                     }
                 }
             })
 
-            if(result.error){
-                console.log(result.error)
-                //TODO : gestion des erreurs 
-            } else if(result.paymentIntent.status === 'succeeded'){
-                console.log('PAYMENT REUSSIE')
+            if(!result.error && result.paymentIntent.status === 'succeeded'){
+                error = null 
                 cardNumber.clear()
                 cardExpiry.clear()
                 cardCvc.clear()
-                //TODO : envoie de mail
-                //redirection 
+
+                //envoie de du resultat au serveur
+                const dataForm = new FormData();
+                dataForm.set('status','success');
+                
+                const response = await fetch('?/try', {
+                    method: 'POST',
+                    body: dataForm
+                });
+                if(response.status === 200)
+                    window.location.replace(window.location.origin);
+        
             }
-            document.querySelector('#btn-paiement')?.removeAttribute('disabled')
+            else error = "Echec du paiement"
+            document.querySelector('input[type="submit"]')?.removeAttribute('disabled')
         }
 
 </script>
@@ -67,10 +77,10 @@
         <img alt="visa" src="/visa.png"/>
     </div>
     <div class="flux">
-        <form>
+        <form method="POST" on:submit|preventDefault={handleSubmit}>
             <div class="card-input">
                 <label for="name">Prénom et nom du titulaire de la carte </label>
-                <input id="cardName" type="name" name="rue" required>
+                <input id="cardName" type="name" name="rue" required bind:value={name}>
             </div>
             <div class="card-input">
                 <label for="cardNumber">Numéro de la carte</label>
@@ -84,7 +94,15 @@
                 <label for="cardCvc">Cryptogramme visuel</label>
                 <div id="cardCvc" class="card"></div>
             </div>
-            <button id="btn-paiement" on:click={payer}>Continuer</button>
+            <div class="btn-paiement">
+                <input type="submit" value="Continuer"/>
+                {#if error}
+                    <p class="error">{error}</p>
+                {/if}
+            </div>
+           
+
+            
         </form>
         <ResumeTT pannier={data.pannier}></ResumeTT>
     </div>
@@ -140,10 +158,19 @@
     }
     #cardExpiry, #cardCvc {width: 60%;}
 
-    button{
+    input[type="submit"] {
         padding: 0.8em 2em;
         color: var(--TC-noir);
         margin-top: 1em;
         background-color: var(--TC-clair);
+    }
+    input[type="submit"]:disabled {
+        background-color: var(--TC-gris);
+        cursor: none;
+    }
+    .btn-paiement{ 
+        display: flex; 
+        gap: 20px;
+        align-items: baseline;
     }
 </style>

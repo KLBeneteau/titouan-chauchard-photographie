@@ -3,7 +3,7 @@ import { redirect,fail  } from '@sveltejs/kit';
 import ProduitModel from '$lib/models/Produit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({}) => {
+export const load: PageServerLoad = async () => {
 
     const produits = JSON.parse(JSON.stringify(await ProduitModel.find()))
                             .map((p:any) =>  { return {nom : p.nom, image : p.image }})
@@ -33,7 +33,7 @@ export const actions: Actions = {
 
         await ProduitModel.deleteOne({nom : data.get('nom')})
 
-        await event.locals.session.update(({}) => ({ flash: { type:'success', message:'Tirage supprimer avec succès', vue:false} }));
+        await event.locals.session.update(() => ({ flash: { type:'success', message:'Tirage supprimer avec succès', vue:false} }));
         throw redirect(303, "/tirages");
     }
   
