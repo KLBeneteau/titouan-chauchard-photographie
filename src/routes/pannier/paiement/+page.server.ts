@@ -73,11 +73,11 @@ export const actions: Actions = {
           user.email,
           "Confirmation d'achat",
           `<h1>Bravo ${user.nom} ${user.prenom} !</h1>
-          <p>Nous confirmation l'achat de votre commande chez Titouan Chauchard Photographie !</p>
+          <p>Nous confirmation votre achat chez Titouan Chauchard Photographie !</p>
           <p><i>${facture}
           livraison : 9.00€ <br/>
           pour un total de ${prix?.toFixed(2)}€</i></p>
-          <p>Si besoin, vous pouvez nous contactez par mail à titouan.chauchard.photographie@gmail.com <br/></p>`
+          <p>Si besoin, vous pouvez nous contacter par mail à titouan.chauchard.photographie@gmail.com <br/></p>`
         )
 
         if(!mail) throw new Error("");
@@ -87,7 +87,7 @@ export const actions: Actions = {
           $push: { historiques : commande?._id }
         })
           
-        await locals.session.update(() => ({ flash: { type:'success', message:"Votre commande à bien été validé ! Tu à reçus un mail", vue:false} }));
+        await locals.session.update(() => ({ flash: { type:'success', message:"Votre commande a bien été validée ! Vous avez reçu un mail de confirmation", vue:false} }));
       } 
       catch {
         console.log('ERREUR APRES VALIDATION DU PAIEMENT')
@@ -98,15 +98,15 @@ export const actions: Actions = {
           <p><i>${description}
           pour un total de ${amount?.toFixed(2)}€ TTC</i></p>
 
-          <p>Le paiement à été effectué, mais l'envoie de mail et le changement de status de la commande ont échoué !</p>
-          <p>La conséquence la plus génant pour le client est que sont pannier n'à pas été effacé, et qu'il n'ai pas reçus de confirmation par mail</p>
-          <p>Pour toi, fait attention <b>cet achat n'aparaitra pas sur ton back office, pense bien à lui envoyez sa commande !</b></p>
+          <p>Le paiement à été effectué, mais l'envoi de mail et le changement de statut de la commande ont échoué !</p>
+          <p>La conséquence la plus génante pour le client est que son pannier n'a pas été effacé, et qu'il n'ai pas reçu de confirmation par mail</p>
+          <p>Pour toi, attention <b>cet achat n'apparaîtra pas sur ton back office, pense bien à lui envoyez sa commande !</b></p>
           <br/>
           <p>contact le à ${user.email}<p/>
           <br/>
           <p>Si cette erreur arrive souvent, contact Kaël !</p>`
         )
-        await locals.session.update(() => ({ flash: { type:'success', message:"Votre commande à bien été validé !", vue:false} }));
+        await locals.session.update(() => ({ flash: { type:'success', message:"Votre commande a bien été validée !", vue:false} }));
       }
 
       throw redirect(303,'/') ;

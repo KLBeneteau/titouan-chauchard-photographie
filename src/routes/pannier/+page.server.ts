@@ -13,7 +13,7 @@ export const actions: Actions = {
 
     await savePannier(locals.session.data.user.id,JSON.parse('['+data.get('quantite')+']'))
 
-    await locals.session.update(() => ({ flash: { type:'success', message:'Votre pannier à bien été sauvegardé', vue:false} }));
+    await locals.session.update(() => ({ flash: { type:'success', message:'Votre pannier a bien été sauvegardé', vue:false} }));
 
     throw redirect(303, "/pannier");
    

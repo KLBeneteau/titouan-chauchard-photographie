@@ -25,7 +25,7 @@ export const actions: Actions = {
       const album = await AlbumModel.findOne({nom: data.get('nom')})
 
       if(album && event.params.nom!==album.nom ){
-         await event.locals.session.update(() => ({ flash: { type:'error', message:'Nom déja utilisé', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'error', message:'Nom déjà utilisé', vue:false} }));
          return fail(400, {});
       }
 
@@ -43,7 +43,7 @@ export const actions: Actions = {
                },
                $push: { images: { $each: Newimages } }
             })
-         await event.locals.session.update(() => ({ flash: { type:'success', message:'Album modifier avec succès', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'success', message:'Album modifié avec succès', vue:false} }));
       } 
       catch (error) {
          console.log(error)

@@ -12,6 +12,11 @@
     export let form: ActionData;
 </script>
 
+<svelte:head>
+  <meta property="description" content="Pour toute demande, contactez-moi directement via mon site, ou au 07.82.70.82.35" />
+  <title>Titouan Chauchard - Contact</title>
+</svelte:head>
+
 {#if user}
     <FullHeader menuDeroulant={data.menuDeroulant}>
         <form slot="nav-user" method="POST" action="../?/logout">
@@ -37,7 +42,7 @@
             <a href="https://www.instagram.com/titouan_chd" target="_blank" rel="noreferrer">
                 <img alt="logo insta" src="/insta.png" />
             </a>
-            <a href="#" target="_blank" rel="noreferrer">
+            <a href="https://www.facebook.com/profile.php?id=100004453997153" target="_blank" rel="noreferrer">
                 <img alt="logo facebook" src="/facebook.png" />
             </a>
         </div>

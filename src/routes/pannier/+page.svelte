@@ -12,6 +12,11 @@
     }
 </script>
 
+<svelte:head>
+  <meta property="description" content="Retrouvez ici les articles que vous avez sélectioné !" />
+  <title>Titouan Chauchard - Pannier</title>
+</svelte:head>
+
 <main>
     <a class="retour" data-sveltekit-reload href="/"><img src="/retour.png" alt="icone de Sebastian Belalcazar"/></a>
     <h1>Mon pannier</h1> 

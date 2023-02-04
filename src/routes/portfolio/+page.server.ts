@@ -46,7 +46,7 @@ export const actions: Actions = {
 
         await AlbumModel.deleteOne({nom : data.get('nom')})
 
-        await event.locals.session.update(() => ({ flash: { type:'success', message:'Album supprimer avec succès', vue:false} }));
+        await event.locals.session.update(() => ({ flash: { type:'success', message:'Album supprimé avec succès', vue:false} }));
         throw redirect(303, "/portfolio");
     }
   

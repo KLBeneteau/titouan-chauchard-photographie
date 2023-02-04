@@ -1,5 +1,6 @@
 <svelte:head>
     <script type="text/javascript" src="https://js.stripe.com/v3/"></script>
+    <title>Règlement</title>
 </svelte:head>
 
 <script lang="ts">

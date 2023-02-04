@@ -39,16 +39,16 @@ export const actions: Actions = {
         const mail = await sendMail(
             'titouan.chauchard.photographie@gmail.com',
             formReponse.object,
-            `<p><b>${formReponse.nom} ${formReponse.prenom} vous à envoyer une demande de contact !</b></p>
+            `<p><b>${formReponse.nom} ${formReponse.prenom} vous a envoyé une demande de contact !</b></p>
             <p>${formReponse.message}</p>
-            <p>Vous pouvez le contacter par mail à ${formReponse.email} <br/>
+            <p>Vous pouvez le contacter par mail à l'adresse suivante : ${formReponse.email} <br/>
             ou par telephone au ${formReponse.telephone}</p>`
         )
 
         if(!mail)
-            await event.locals.session.update(() => ({ flash: { type:'error', message:"Votre message n'à pas pu etre envoyé :(", vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'error', message:"Votre message n'a pas pu être envoyé :(", vue:false} }));
         else 
-            await event.locals.session.update(() => ({ flash: { type:'success', message:'Votre message à été envoyer !', vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'success', message:'Votre message a bien été envoyé !', vue:false} }));
 
         throw redirect(303, "/");
     

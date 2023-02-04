@@ -72,15 +72,15 @@ export const actions: Actions = {
                 formReponse.email,
                 'Inscription à Titouan-Chauchard-Photographie',
                 `<h1>Félicitation ${formReponse.nom} ${formReponse.prenom} !</h1>
-                <p>Vous êtes désormais inscrit à mon site de photographie, j'espère que mes projets te plairont 😁</p>
+                <p>Vous êtes désormais inscrit à mon site de photographie, j'espère que mes projets vous plairont !</p>
                 <br/><p>Titouan Chauchard</p>
                 <p>titouan.chauchard.photographie@gmail.com</p>`
             );
 
             if(!mail)
-                await event.locals.session.update(() => ({ flash: { type:'success', message:"Compte créé avec succès, mais notre mail de confirmation n'à pas pue vous parvenir...", vue:false} }));
+                await event.locals.session.update(() => ({ flash: { type:'success', message:"Compte créé avec succès, mais notre mail de confirmation n'a pas pu vous parvenir...", vue:false} }));
             else 
-                await event.locals.session.update(() => ({ flash: { type:'success', message:'Compte créé avec succès ! Un email vous à été envoyez', vue:false} }));
+                await event.locals.session.update(() => ({ flash: { type:'success', message:'Compte créé avec succès ! Un email vous a été envoyé', vue:false} }));
 
             throw redirect(303, "/");
         }

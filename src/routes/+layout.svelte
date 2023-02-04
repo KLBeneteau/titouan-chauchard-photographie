@@ -7,6 +7,10 @@
     let modal = f?.type == "success"
 </script>
 
+<svelte:head>
+    <link rel="icon" href="/logo-titouan-chauchard.png" />
+</svelte:head>
+
 {#if f }
  {#if f.type == "success"}
     {#if modal}
@@ -88,6 +92,7 @@
         height: 130px ;
         width: 100%;
         object-fit: cover;
+        object-position: center;
     }
    
     .flash {
@@ -98,7 +103,7 @@
         top: 220px;
     }
     .fondModale { 
-        position: absolute;
+        position: fixed;
         height: 100vh;
         width: 100vw;
         display: flex;

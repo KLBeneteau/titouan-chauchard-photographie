@@ -8,6 +8,11 @@
     export let form: ActionData;
 </script>
 
+<svelte:head>
+  <meta property="description" content="Inscrivez-vous afin de bénéficier de tous les services disponibles" />
+  <title>Titouan Chauchard - Inscription</title>
+</svelte:head>
+
 <FullHeader menuDeroulant={data.menuDeroulant}>
     <a data-sveltekit-reload slot="nav-user" href="/connexion">Se connecter</a>
 </FullHeader>
@@ -46,9 +51,9 @@
         <div class="input">
             <label for="confirm-password">Confirmation mot de passe</label>
             <input type="password" name="confirm-password" required class:input-error="{form?.error['confirm-password']}">
-            {#if form?.error['confirm-password']}<p class="error">Mot de passe et confirmation différentes</p>{/if}
+            {#if form?.error['confirm-password']}<p class="error">Mot de passe et confirmation différents</p>{/if}
         </div>
-        {#if form?.error.userExiste}<p class="error">Cet email est déja utilisé !</p>{/if}
+        {#if form?.error.userExiste}<p class="error">Ce email est déjà utilisé !</p>{/if}
     </div>
     <input type="submit" value="S'inscrire"/>
 </form>

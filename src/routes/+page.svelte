@@ -8,6 +8,11 @@
     
 </script>
 
+<svelte:head>
+  <meta property="description" content="Passionné par la photographie, je parcours le monde avec mon fidèle camion. Venez découvrire mon travail et mes services personalisés." />
+  <title>Titouan Chauchard - Artiste Photographe</title>
+</svelte:head>
+
 {#if user}
     <Header>
         <NavUser slot="nav-user"/>
@@ -21,7 +26,7 @@
     <div class="coloneImage">
         <div class="formatPetit">
             <a data-sveltekit-reload href="/presentation" id="presentation">
-                <p>Presentation</p>
+                <p>Présentation</p>
             </a>
             <a data-sveltekit-reload href="/portfolio" id="portfolio">
                 <p>Portfolio</p>

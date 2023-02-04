@@ -9,6 +9,9 @@
 
 </script>
 
+<svelte:head>
+  <title>Informations de livraison</title>
+</svelte:head>
 
 <main>
     <a class="retour" data-sveltekit-reload href="/pannier"><img src="/retour.png" alt="icone de Sebastian Belalcazar"/></a>
@@ -50,7 +53,7 @@
             <div class="input pays">
                 <label for="pays">Pays</label>
                 <input type="text" name="pays" required value={form?.pays ?? data.pannier.infoLivraison?.adresse.pays ?? ''} class:input-error="{form?.error.pays}">
-                {#if form?.error.pays}<p class="error">Nous ne livrons pas dans se pays</p>{/if}
+                {#if form?.error.pays}<p class="error">Nous ne livrons pas dans ce pays</p>{/if}
             </div>
             <div class="input">
                 <label for="telephone">Téléphone</label>

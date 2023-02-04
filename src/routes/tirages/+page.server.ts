@@ -33,7 +33,7 @@ export const actions: Actions = {
 
         await ProduitModel.deleteOne({nom : data.get('nom')})
 
-        await event.locals.session.update(() => ({ flash: { type:'success', message:'Tirage supprimer avec succès', vue:false} }));
+        await event.locals.session.update(() => ({ flash: { type:'success', message:'Tirage supprimé avec succès', vue:false} }));
         throw redirect(303, "/tirages");
     }
   

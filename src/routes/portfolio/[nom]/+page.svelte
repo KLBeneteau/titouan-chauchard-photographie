@@ -41,6 +41,11 @@
     }
 </script>
 
+<svelte:head>
+  <meta property="description" content="{album.description ?? ''}" />
+  <title>{album.nom.replace(/_/," ")}</title>
+</svelte:head>
+
 <main>
     <img class="banderole" alt="banderole" src="{album.banderole ?? "/defaultBanniere.png" }" />
     <form method="POST" action="?/update"
@@ -75,17 +80,17 @@
                 </div>
                 <div class="input">
                     <label for="vignette">Image de la vignette</label>
-                    <input type="file" name="vignette" accept=".jpg, .jpeg, .png" on:change={(e)=>onVignetteSelected(e)}/>
+                    <input type="file" name="vignette" accept=".jpg, .jpeg, .png,.webp" on:change={(e)=>onVignetteSelected(e)}/>
                     <input type="hidden" name="vignetteFile" value="{vignette}"/>
                 </div>
                 <div class="input">
                     <label for="banderole">Image de la banderole</label>
-                    <input type="file" name="banderole" accept=".jpg, .jpeg, .png" on:change={(e)=>onBanderoleSelected(e)}/>
+                    <input type="file" name="banderole" accept=".jpg, .jpeg, .png,.webp" on:change={(e)=>onBanderoleSelected(e)}/>
                     <input type="hidden" name="banderoleFile" value="{banderole}"/>
                 </div>
                 <div class="input">
                     <label for="banderole">Ajouter des photographies</label>
-                    <input type="file" name="photographies" accept=".jpg, .jpeg, .png" on:change={(e)=>onPhotographiesSelected(e)} multiple /> 
+                    <input type="file" name="photographies" accept=".jpg, .jpeg, .png,.webp" on:change={(e)=>onPhotographiesSelected(e)} multiple /> 
                     <input type="hidden" id="photographiesFiles" name="photographiesFiles" value="{JSON.stringify(photographies)}" />
                 </div>
                 <input type="submit" value="Valider"/>
@@ -175,7 +180,8 @@
     .photographie {
         height: 450px;
         width: 337px;
-        object-fit: contain;
+        object-fit: cover;
+        object-position: center;
     }
     .suppr {
         position: absolute;

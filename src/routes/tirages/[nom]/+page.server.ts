@@ -30,7 +30,7 @@ export const actions: Actions = {
       const tirage = await ProduitModel.findOne({nom: data.get('nom')?.toString().trim().replace(/ /,"_")})
 
       if(tirage && event.params.nom!==tirage.nom ){
-         await event.locals.session.update(() => ({ flash: { type:'error', message:'Nom déja utilisé', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'error', message:'Nom déjà utilisé', vue:false} }));
          return fail(400, {});
       }
 
@@ -44,11 +44,11 @@ export const actions: Actions = {
                   tarif : JSON.parse(data.get("tarifs")?.toString() ?? "[]")
                }
             })
-         await event.locals.session.update(() => ({ flash: { type:'success', message:'Tirage modifier avec succès', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'success', message:'Tirage modifié avec succès', vue:false} }));
       } 
       catch (error) {
          console.log(error)
-         await event.locals.session.update(() => ({ flash: { type:'error', message:'erreur lors de la modification', vue:false} }));
+         await event.locals.session.update(() => ({ flash: { type:'error', message:'Erreur lors de la modification', vue:false} }));
          return fail(400, {});
       }
 
@@ -84,7 +84,7 @@ export const actions: Actions = {
                   }
                }
             )
-            await event.locals.session.update(() => ({ flash: { type:'success', message:'Le tirage à bien été ajouté au pannier', vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'success', message:'Le tirage a bien été ajouté au pannier', vue:false} }));
          }
          //Sinon on créer le pannier avec le produit
          else {
@@ -93,7 +93,7 @@ export const actions: Actions = {
 
             //Vérifier que la dimension envoyer existe bien chez le produit
             if(!dimension || !produit?.tarif.map(t => t.dimension).find(d => d===dimension)){
-               await event.locals.session.update(() => ({ flash: { type:'error', message:'Dimension non valide', vue:false} }));
+               await event.locals.session.update(() => ({ flash: { type:'error', message:'Dimensions non valides', vue:false} }));
                return fail(400, {});
             }  
 
@@ -113,7 +113,7 @@ export const actions: Actions = {
                {pannier : pannier._id}
             )
 
-            await event.locals.session.update(() => ({ flash: { type:'success', message:'Le tirage à bien été ajouté au pannier', vue:false} }));
+            await event.locals.session.update(() => ({ flash: { type:'success', message:'Le tirage a bien été ajouté au pannier', vue:false} }));
          }    
       } catch (error) {
          console.log(error)

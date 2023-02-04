@@ -52,19 +52,19 @@ export const actions: Actions = {
                 })
                 const mail = await sendMail(
                     user?.email ?? '',
-                    'Votre mot de passe à été modifier !',
-                    `<h1>${user?.prenom}, votre mot de passe à été modifier !</h1>
-                    <p>Si vous n'avez pas effectuer cette demande, contacter moi par mail ! </p> 
+                    'Votre mot de passe a été modifié !',
+                    `<h1>${user?.prenom}, votre mot de passe a été modifié !</h1>
+                    <p>Si vous n'êtes pas à l'origine de cette demande, contactez-moi par mail ! </p> 
                     <br/><p>Titouan Chauchard</p>
                     <p>titouan.chauchard.photographie@gmail.com</p>`
                 );
                 if(!mail)
-                    await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors de l'envoie de mail...", vue:false} }));
+                    await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors de l'envoi du mail...", vue:false} }));
                 else 
-                    await event.locals.session.update(() => ({ flash: { type:'success', message:'Votre mot de passe à été correctement modifier', vue:false} }));
+                    await event.locals.session.update(() => ({ flash: { type:'success', message:'Votre mot de passe a correctement été modifié', vue:false} }));
 
             } catch {
-                await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors l'enregistrement du mot de passe", vue:false} }));
+                await event.locals.session.update(() => ({ flash: { type:'error', message:"Echec lors de l'enregistrement du mot de passe", vue:false} }));
                 return fail(400, formReponse);
             }
             throw redirect(303, "/");

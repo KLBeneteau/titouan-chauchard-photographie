@@ -3,17 +3,21 @@
     export let form: ActionData;
 </script>
 
+<svelte:head>
+  <title>Récupération de mot de passe</title>
+</svelte:head>
+
 <a class="retour" data-sveltekit-reload href="/connexion"><img src="/retour.png" alt="icone de Sebastian Belalcazar"/></a>
 <form method="POST">
-    <h1>Mot de passe oubliée</h1>
+    <h1>Mot de passe oublié</h1>
     <div class="flux">
         <div class="input">
             <label for="email">Mail</label>
             <input type="email" name="email" required value={form?.email ?? ''} class:input-error="{form?.error.email}">
-            {#if form?.error.email}<p class="error">Utilisateur incconue</p>{/if}
+            {#if form?.error.email}<p class="error">Utilisateur incconu</p>{/if}
         </div>
     </div>
-    <input type="submit" value="Envoyer un mail de récupération"/>
+    <input type="submit" value="Recevoir un mail de récupération"/>
 </form>
 
 <style>

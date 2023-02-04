@@ -3,6 +3,10 @@
     export let form: ActionData;
 </script>
 
+<svelte:head>
+  <meta property="description" content="Connectez-vous afin de profiter de tout mon contenu" />
+  <title>Titouan Chauchard - Connexion</title>
+</svelte:head>
 
 <form method="POST">
     <h1>Connexion</h1>
@@ -10,7 +14,7 @@
         <div class="input">
             <label for="email">Mail</label>
             <input type="email" name="email" required value={form?.email ?? ''} class:input-error="{form?.error.email}">
-            {#if form?.error.email}<p class="error">Utilisateur incconue</p>{/if}
+            {#if form?.error.email}<p class="error">Utilisateur incconu</p>{/if}
         </div>
         <div class="input">
             <label for="password">Mot de passe</label>

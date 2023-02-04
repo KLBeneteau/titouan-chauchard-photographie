@@ -6,8 +6,12 @@
     import { page } from '$app/stores';
     const session = $page.data.session;
     let user = session?.user
-    
 </script>
+
+<svelte:head>
+  <meta property="description" content="Au gré de mes voyages, j'ai réalisé plusieurs projets photographiques. Ils refletent chacun un petit morceau de mes aventures." />
+  <title>Titouan Chauchard - Portfolio</title>
+</svelte:head>
 
 <img class="banderole" alt="banderole" src="/bannierePortfolio.png" />
 <main>
@@ -19,7 +23,7 @@
             </form>
         {/if}
     </div>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p>Au gré de mes voyages, j'ai réalisé plusieurs projets photographiques. Ils refletent chacun un petit morceau de mes aventures. Ces petits moments hors du temps, m'ont inspriré différentes séries d'images que j'ai le plaisir de partager avec vous.</p>
     <div class="blockListe">
         {#each lignes as ligne, i}
         <div class="block" class:end="{ i%2!=0 && (!ligne.grand || !ligne.petit1)}">

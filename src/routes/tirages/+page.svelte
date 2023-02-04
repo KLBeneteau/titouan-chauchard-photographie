@@ -9,6 +9,11 @@
 
 </script>
 
+<svelte:head>
+  <meta property="description" content="Tirages sur papier fine-art Ultra Smooth Hahnemühle 305g / imprimantes Epson Fine Art Surface lisse, blanc naturel mat, toucher très soyeux." />
+  <title>Titouan Chauchard - Tirages d'Art</title>
+</svelte:head>
+
 <main>
     <div class="head">
         <h1>Tirages d'Arts</h1>

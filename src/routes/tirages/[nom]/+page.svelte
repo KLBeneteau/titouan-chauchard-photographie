@@ -26,6 +26,12 @@
         
     }
 </script>
+
+<svelte:head>
+  <meta property="description" content="{tirage.description ?? ''}" />
+  <title>{tirage.nom.replace(/_/," ")}</title>
+</svelte:head>
+
 <main>
     <div class="head">
         <a class="retour" data-sveltekit-reload href="/tirages"><img src="/retour.png" alt="icone de Sebastian Belalcazar"/></a>
@@ -41,7 +47,7 @@
             {#if enModification}
                 <div class="input">
                     <label for="image">Image</label>
-                    <input type="file" name="image" accept=".jpg, .jpeg, .png" on:change={(e)=>onImageSelected(e)}/>
+                    <input type="file" name="image" accept=".jpg, .jpeg, .png,.webp" on:change={(e)=>onImageSelected(e)}/>
                 </div>
             {:else}
                 <img alt="photographie" src="{tirage.image ?? ''}" />
@@ -63,7 +69,7 @@
                 
                     <div class="tabTarif">
                         <div class="tarif">
-                            <div>Dimension</div>
+                            <div>Dimensions</div>
                             <div>Prix</div>
                         </div>
                         {#each $newTarifs as tarif, i}
@@ -91,7 +97,7 @@
                 <form method="POST" action="?/ajouterPannier" class="ajouterPannier">
                     <h2>{tirage.nom.replace(/_/," ")}</h2>
                     <p class="textCenter">{tirage.description}</p>
-                    <h3>Dimension (cm)</h3>
+                    <h3>Dimensions (cm)</h3>
                     <div class="dimensionListe">
                         {#each tirage.tarif as t}
                             <button on:click={(e)=>{ 
