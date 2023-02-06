@@ -1,5 +1,6 @@
 <script lang='ts'>
     import FullHeader from '$lib/component/fullHeader.svelte';
+    import NavUser from "$lib/component/navUser.svelte";
     import { page } from '$app/stores';
 
     import type { PageParentData } from './$types';
@@ -19,13 +20,14 @@
 
 {#if user}
     <FullHeader menuDeroulant={data.menuDeroulant}>
-        <form slot="nav-user" method="POST" action="../?/logout">
-            <input type="submit" value="Se déconnecter" class="noColor"/>
-        </form>
+        <NavUser slot="nav-user"/>
     </FullHeader>  
 {:else} 
     <FullHeader menuDeroulant={data.menuDeroulant}>
-        <a data-sveltekit-reload slot="nav-user" href="/connexion">Se connecter</a>
+        <a data-sveltekit-reload  slot="nav-user" href="/connexion">
+            <div class="bureau">Se connecter </div>
+            <img class="mobile" alt="logo connexion" src="/enter.png" />
+        </a>
     </FullHeader> 
 {/if}
 
@@ -95,7 +97,6 @@
         margin: 1em auto;
     }
     main > * {
-        width: 48%;
         display: flex;
         flex-direction: column;
     }
@@ -135,5 +136,18 @@
     .submit {
         padding: 0.8em 2em;
         color: var(--TC-noir);
+    }
+
+    /*bureau*/
+    @media (min-width: 1100px) {
+        main > * {
+                    width: 48%;
+        }
+    }
+    /*mobile*/
+    @media (max-width: 1100px) {
+        main,.ligne {
+            flex-direction: column;
+        }
     }
 </style>

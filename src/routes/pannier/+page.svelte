@@ -151,4 +151,15 @@
         background-color: var(--TC-clair);
         color : var(--TC-noir);
     }
+
+   
+    /*mobile*/
+    @media (max-width: 1100px) {
+      .quantite {
+        flex-direction: column-reverse; 
+      }
+      .tab { 
+        text-align: center;
+      }
+    }
 </style>

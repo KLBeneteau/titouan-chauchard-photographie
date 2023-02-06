@@ -144,7 +144,6 @@
         align-items: flex-start;
         gap: 30px;
         width: 100%;
-        margin: 3em 0;
     }
     .card-input {
         display: flex;
@@ -173,5 +172,25 @@
         display: flex; 
         gap: 20px;
         align-items: baseline;
+    }
+
+    /*Bureau*/
+    @media (min-width: 1100px) {
+        form {
+            margin: 3em 0;
+        }
+    }
+    /*mobile*/
+    @media (max-width: 1100px) {
+      .head {
+        flex-direction: column;
+        text-align: center;
+      }
+      h1 {
+        margin-bottom: 0;
+      }
+      .flux {
+        flex-direction: column;
+      }
     }
 </style>

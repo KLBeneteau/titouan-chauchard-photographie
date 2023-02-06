@@ -19,7 +19,10 @@
     </Header>  
 {:else} 
     <Header>
-        <a data-sveltekit-reload slot="nav-user" href="/connexion">Se connecter</a>
+        <a data-sveltekit-reload  slot="nav-user" href="/connexion">
+            <div class="bureau">Se connecter </div>
+            <img class="mobile" alt="logo connexion" src="/enter.png" />
+        </a>
     </Header> 
 {/if}
 <nav class="main">
@@ -50,10 +53,6 @@
     .main {
         display: flex;
         align-items: stretch;
-        justify-content: space-evenly;
-        gap: 5px;
-        height: calc(100vh - 280px);
-        margin-top: 20px;
     }
     #presentation { background-image: url("/presentation.png"); } 
     #portfolio { background-image: url("/portfolio.png"); } 
@@ -65,8 +64,7 @@
         background-color: #0D0C0CB3;
         font-size: larger;
     }
-    .coloneImage { 
-        width: 45%;
+    .coloneImage {  
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -80,8 +78,54 @@
         background-position: center;
     }
     .formatGrand { height: 63%;}
-    .formatMoyen,.formatPetit { height: 33%;}
-    .formatPetit{ display: flex; justify-content: space-between;}
-    .formatPetit > a { height: 100%; width: 47%;}
+    .formatMoyen,
+    .formatPetit { 
+        display: flex; 
+        justify-content: space-between;
+    }
+    .formatPetit > a { height: 100%; }
+
+
+    /*bureau*/
+    @media (min-width: 1100px) {
+        .main {
+            gap: 5px;
+            height: calc(100vh - 280px);
+            margin-top: 20px;
+            justify-content: space-evenly;
+        }
+        .coloneImage {
+            width: 45%;
+        }
+        .formatPetit { 
+            height: 33%;
+        }
+        .formatPetit > a { width: 47%;}
+    }
+    /*mobile*/
+    @media (max-width: 1100px) {
+        .main,
+        .formatPetit { 
+            flex-direction: column;
+        }
+
+        .main {
+            margin: 1em 0;
+        }
+
+        .coloneImage a {
+            width: 80%;
+            align-self: center;
+            margin: 0.3em;
+        }
+
+        p { 
+            padding: 0.4em 0em;
+            margin: 1.5em 0em;
+            width: 70%;
+            text-align: center;
+            max-width: 350px;
+        }
+    }
 </style>
 

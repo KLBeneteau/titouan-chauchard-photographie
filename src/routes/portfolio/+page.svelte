@@ -23,7 +23,7 @@
             </form>
         {/if}
     </div>
-    <p>Au gré de mes voyages, j'ai réalisé plusieurs projets photographiques. Ils refletent chacun un petit morceau de mes aventures. Ces petits moments hors du temps, m'ont inspriré différentes séries d'images que j'ai le plaisir de partager avec vous.</p>
+    <p class="description">Au gré de mes voyages, j'ai réalisé plusieurs projets photographiques. Ils refletent chacun un petit morceau de mes aventures. Ces petits moments hors du temps, m'ont inspriré différentes séries d'images que j'ai le plaisir de partager avec vous.</p>
     <div class="blockListe">
         {#each lignes as ligne, i}
         <div class="block" class:end="{ i%2!=0 && (!ligne.grand || !ligne.petit1)}">
@@ -105,39 +105,28 @@
     }
     .blockListe {
         display: flex;
-        flex-wrap: wrap;
         width: 90%;
         margin: auto;
         justify-content: space-between;
     }
     .block {
-        width: 48%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        height: 600px;
-        margin: 1em 0;
-    }
-    .block:nth-child(2n){
-        flex-direction: column-reverse;
     }
     .end {
         justify-content: flex-end;
     }
     .block > * { width: 100%;}
     .grand { 
-        height: 63%; 
         width: 100%;
         position: relative;
     }
     .ligne { 
-        height: 33%;
         display: flex;
         justify-content: space-between;
     }
     .petit { 
         height: 100%; 
-        width: 45%;
         position: relative;
     }
     .vignette { 
@@ -164,7 +153,55 @@
         margin: 0.2em;
         height: 35px;
     }
-    .suppr img {
-        height: 35px;
+
+    /*bureau*/
+    @media (min-width: 1100px) {
+        .petit { 
+            width: 45%;
+        }
+        .blockListe {
+            flex-wrap: wrap;
+        }
+        .block {
+            width: 48%;
+            height: 600px;
+            margin: 1em 0;
+            justify-content: space-between;
+        }
+        .block:nth-child(2n){
+            flex-direction: column-reverse;
+        }
+        .grand { 
+            height: 63%; 
+        }
+        .suppr img {
+            height: 35px;
+        }
+        .ligne {
+            height: 33%;
+        }
+    }
+    /*mobile*/
+    @media (max-width: 1100px) {
+        .blockListe, .ligne {
+            flex-direction: column;
+        }
+        .vignette {
+            margin: 0.5em 0;
+        }
+        .suppr img {
+            height: 28px;
+        }
+        .vignette  p { 
+            padding: 0.4em 0em;
+            margin: 1.5em 0em;
+            width: 70%;
+            text-align: center;
+            max-width: 350px;
+        }
+        .description {
+            margin: 1em 2em;
+        }
+
     }
 </style>

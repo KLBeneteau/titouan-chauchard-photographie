@@ -72,8 +72,6 @@
 
     .image {
         background-color: #4F4D4D;
-        width: 370px;
-        height: 500px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -100,5 +98,22 @@
     }
     .suppr img {
         height: 35px;
+    }
+
+    /*Bureau*/
+    @media (min-width: 1100px) {
+       .image {
+            width: 370px;
+            height: 500px;
+       }
+    }
+    /*mobile*/
+    @media (max-width: 1100px) { 
+        .image {
+            padding: 1em 0;
+        }
+        .produit {
+            padding: 0;
+        }
     }
 </style>

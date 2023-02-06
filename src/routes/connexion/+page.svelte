@@ -55,4 +55,12 @@
         color: var(--TC-noir);
         margin-top: 1em;
     }
+
+    /*mobile*/
+    @media (max-width: 1100px) {
+        form {
+            margin-bottom: 2em;
+            width: 80%;
+        }
+    }
 </style>

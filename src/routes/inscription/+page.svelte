@@ -14,7 +14,10 @@
 </svelte:head>
 
 <FullHeader menuDeroulant={data.menuDeroulant}>
-    <a data-sveltekit-reload slot="nav-user" href="/connexion">Se connecter</a>
+    <a data-sveltekit-reload  slot="nav-user" href="/connexion">
+        <div class="bureau">Se connecter </div>
+        <img class="mobile" alt="logo connexion" src="/enter.png" />
+    </a>
 </FullHeader>
 <form method="POST">
     <h1>Inscription</h1>
@@ -95,5 +98,16 @@
 
     .err-password {
         bottom: -30px;
+    }
+
+    /*mobile*/
+    @media (max-width: 1100px) {
+        form {
+            margin-bottom: 2em;
+            width: 80%;
+        }
+        .ligne {
+            flex-direction: column;
+        }
     }
 </style>

@@ -26,6 +26,13 @@
  {/if}
 {/if}
 <slot/>
+<footer class="mobile">
+    <p>Téléphone : 07.82.70.82.35</p>
+    <p>Localisation : Les Sables d’Olonne (85)<br>
+        Déplacements possibles dans toute la France</p>
+    <p>Facebook : Titouan Chd</p>
+    <p>Instagram : titouan_chd</p>
+</footer>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Playfair+Display&display=swap');
@@ -110,7 +117,7 @@
         align-items: center;
         justify-content: center;
         background-color: var(--TC-sombre);
-        z-index: 1;
+        z-index: 50;
     }
     .fondModale > p {
         padding: 2em 4em;
@@ -126,5 +133,19 @@
     }
     .fondModale img {
         height: 50px;
+    }
+
+    /*bureau*/
+    @media (min-width: 1100px) {
+        :global(.mobile) {display: none !important; }
+    }
+    /*mobile*/
+    @media (max-width: 1100px) {
+        :global(.bureau) {display: none !important;}
+
+        footer {
+            border-top: 1px solid var(--TC-clair);
+            padding: 0 2em;
+        }
     }
 </style>

@@ -135,7 +135,7 @@
         display: flex; 
         align-items: center;
     }
-    .head > * { margin: 1em 0.3em;}
+    
     .pen img { height: 40px;}
 
     .prix {
@@ -151,7 +151,6 @@
         justify-content: space-between;
         width: 100%;
     }
-    .body > div { width: 48%;}
     .image .input { display: flex; align-items: center;}
     textarea { 
         height: 200px;
@@ -252,4 +251,35 @@
         height: 50px;
     }
     .textCenter{text-align: center;}
+
+    /*Bureau*/
+    @media (min-width: 1100px) {
+        .body > div { width: 48%;}
+        .head > * { margin: 1em 0.3em;}
+    }
+    /*mobile*/
+    @media (max-width: 1100px) { 
+        .body { flex-direction: column;}
+        .image {
+            padding: 1em 0;
+        }
+        .head {
+            flex-direction: column;
+
+        }
+        h1 {
+            text-align: center;
+            max-width: 60%;
+            margin: 0.3em 0;
+        }
+        .dimensionListe { 
+            display: flex;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .dimensionListe > button {
+            white-space: nowrap;
+        }
+    }
 </style>

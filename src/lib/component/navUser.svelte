@@ -1,8 +1,9 @@
 <script>
-    let menuUser = false
+    import { menuUserMobile } from "./store";
+    let menuUser = false ;
 </script>
 
-<div class="menu-deroulant"
+<div class="menu-deroulant bureau"
     on:mouseenter={() => menuUser=true}
     on:mouseleave={() => menuUser=false}
 >
@@ -16,3 +17,8 @@
         </div>
     {/if}
 </div>
+<button class="mobile"
+    on:click={() => { menuUserMobile.update(val => !val)}}
+>
+    <img class="logoMobile" src="/userLogo.png" alt="Bouton pour afficher le menu de l'utilisateur"/>
+</button>

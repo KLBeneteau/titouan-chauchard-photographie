@@ -58,4 +58,17 @@
     .retour img {
         height: 50px;
     }
+
+    /*mobile*/
+    @media (max-width: 1100px) {
+        form {
+            margin-bottom: 2em;
+            width: 80%;
+        }
+
+        h1 {
+            max-width: 65%;
+            text-align: center;
+        }
+    }
 </style>

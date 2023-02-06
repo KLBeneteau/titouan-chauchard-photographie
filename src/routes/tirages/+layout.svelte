@@ -16,7 +16,10 @@
     </FullHeader>  
 {:else} 
     <FullHeader menuDeroulant={data.menuDeroulant}>
-        <a data-sveltekit-reload slot="nav-user" href="/connexion">Se connecter</a>
+        <a data-sveltekit-reload  slot="nav-user" href="/connexion">
+            <div class="bureau">Se connecter </div>
+            <img class="mobile" alt="logo connexion" src="/enter.png" />
+        </a>
     </FullHeader> 
 {/if}
 <img class="banderole" alt="banderole" src="/banniereTirage.png" />

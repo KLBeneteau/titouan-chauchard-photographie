@@ -96,14 +96,12 @@
         justify-content: space-around;
         width: 100%;
         align-items: flex-start;
-        margin-top: 3em;
     }
 
     form {
         display: flex;
         flex-direction: column;
         max-width: 500px;
-        align-items: center;
         gap: 30px;
     }
 
@@ -128,5 +126,31 @@
         padding: 0.8em 2em;
         color: var(--TC-noir);
         margin-top: 1em;
+    }
+
+    /*Bureau*/
+    @media (min-width: 1100px) {
+        form {
+            align-items: center;
+        }
+        .flux {
+            margin-top: 3em;
+        }
+    }
+    /*mobile*/
+    @media (max-width: 1100px) {
+        .flux, .ligne { 
+            flex-direction: column;
+        }
+
+        form {   
+            width: 100%;
+        }
+        :global(.resumeTT) {
+            align-self: center;
+        }
+        h1 { 
+            text-align: center;
+        }
     }
 </style>

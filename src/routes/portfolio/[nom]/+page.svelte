@@ -129,10 +129,8 @@
         display: flex; 
         align-items: center;
     }
-    .head > * { margin: 1em 0.3em;}
     p { 
         max-width: 1200px;
-        margin: 0 2em;
         text-align: center;
     }
 
@@ -201,4 +199,23 @@
     }
     .self-center{ align-self: center;}
     .maxwidth{ max-width: 600px;}
+
+    
+    /*Bureau*/
+    @media (min-width: 1100px) {
+        p {
+            margin: 0 2em;
+        }
+        .head > * { margin: 1em 0.3em;}
+    }
+    /*mobile*/
+       @media (max-width: 1100px) {
+        .imageListe {
+            justify-content: center;
+        }
+        .head {
+            text-align: center;
+            flex-direction: column-reverse;
+        }
+    }
 </style>

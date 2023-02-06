@@ -56,4 +56,16 @@
     .err-password {
         bottom: -30px;
     }
+
+    /*mobile*/
+    @media (max-width: 1100px) {
+        form {
+            margin-bottom: 2em;
+            width: 80%;
+        }
+
+        h1 {
+            text-align: center;
+        }
+    }
 </style>
