@@ -56,6 +56,7 @@
     header {
         display: flex;
         padding: 0 5%;
+        align-items: center;
     }
     nav {
         display: flex;

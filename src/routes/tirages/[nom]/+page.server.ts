@@ -27,7 +27,9 @@ export const actions: Actions = {
  
       let data = await event.request.formData();
 
-      const tirage = await ProduitModel.findOne({nom: data.get('nom')?.toString().trim().replace(/ /,"_")})
+      const tirage = await ProduitModel.findOne({
+         nom: data.get('nom')?.toString().trim().replace(/ /,"_")
+      })
 
       if(tirage && event.params.nom!==tirage.nom ){
          await event.locals.session.update(() => ({ flash: { type:'error', message:'Nom déjà utilisé', vue:false} }));

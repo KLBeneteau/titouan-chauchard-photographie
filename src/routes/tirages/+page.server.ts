@@ -6,7 +6,7 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async () => {
 
     const produits = JSON.parse(JSON.stringify(await ProduitModel.find()))
-                            .map((p:any) =>  { return {nom : p.nom, image : p.image }})
+                    .map((p:any) =>  { return {nom : p.nom, image : p.image }})
 
    return { 
         produits : produits 

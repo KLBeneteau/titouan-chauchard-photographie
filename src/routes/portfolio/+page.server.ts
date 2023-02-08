@@ -5,7 +5,8 @@ import AlbumModel from '$lib/models/Album';
 
 export const load: PageServerLoad = async () => {
 
-    const albums = JSON.parse(JSON.stringify(await AlbumModel.find())).map((a:any) =>  { return {vignette : a.vignette, format : a.formatVignette, nom : a.nom}})
+    const albums = JSON.parse(JSON.stringify(await AlbumModel.find()))
+                   .map((a:any) =>  { return { vignette : a.vignette, format : a.formatVignette, nom : a.nom}})
 
     let albumsPetit = albums.filter((a:any) => !a.format)
     let albumsGrand = albums.filter((a:any) => a.format)
