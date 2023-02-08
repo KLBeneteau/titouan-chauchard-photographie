@@ -97,6 +97,7 @@
         .coloneImage {
             width: 45%;
         }
+        .formatMoyen,
         .formatPetit { 
             height: 33%;
         }
