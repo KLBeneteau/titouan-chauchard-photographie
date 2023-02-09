@@ -26,7 +26,7 @@
     <p class="description">Au gré de mes voyages, j'ai réalisé plusieurs projets photographiques. Ils refletent chacun un petit morceau de mes aventures. Ces petits moments hors du temps, m'ont inspriré différentes séries d'images que j'ai le plaisir de partager avec vous.</p>
     <div class="blockListe">
         {#each lignes as ligne, i}
-        <div class="block" class:end="{ i%2!=0 && (!ligne.grand || !ligne.petit1)}">
+        <div class="block" class:end="{ i%2!==0 && (!ligne.grand || !ligne.petit1)}">
             {#if ligne.grand}
             <div class="grand">
                 <a class="vignette" data-sveltekit-reload href="/portfolio/{ligne.grand.nom}" style="background-image: url({ligne.grand.vignette ?? '/defaultGrand.png'});">
@@ -113,9 +113,6 @@
         display: flex;
         flex-direction: column;
     }
-    .end {
-        justify-content: flex-end;
-    }
     .block > * { width: 100%;}
     .grand { 
         width: 100%;
@@ -170,6 +167,9 @@
         }
         .block:nth-child(2n){
             flex-direction: column-reverse;
+        }
+        .block.end {
+            justify-content: flex-end;
         }
         .grand { 
             height: 63%; 
