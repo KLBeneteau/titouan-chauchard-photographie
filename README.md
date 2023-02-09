@@ -24,7 +24,7 @@ npm run dev
 ```
 
 ## bug 
-Si le projet ne répond pas à l'url appelé, vous pouvez créer un nouveau projet svelte, le lancer et aller sur l'url de ce projet dans votre navigateur.  
+Si le projet ne répond pas à l'url appelé, vous pouvez créer un nouveau projet svelte, le lancer et aller sur l'url de ce nouveau projet dans votre navigateur.  
 Puis revenir sur le projet titouan-chauchard-photographie et le relancé.  
 
 Je ne comprends pas bien ce problème, cela vient visiblement de la connexion avec la base de données, mais j'ai du mal à le résoudre sans message d'erreur. 
